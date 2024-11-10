@@ -24,6 +24,7 @@ body {
 
 .container {
     display: flex;
+    display:-webkit-flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
@@ -32,8 +33,7 @@ body {
     background: #e4f1fe;
     height: 95%;
     border-radius: 10px;
-
-
+    margin-top: 5px;
 }
 
 .charts {
@@ -42,32 +42,32 @@ body {
     align-items: center;
     justify-content: space-evenly;
     justify-self: stretch;
-    width: 98%;
+    width: 99%;
 }
 
 .row {
     display: flex;
     flex-direction: row;
-    width: 98%;
+    width: 99%;
     align-content:center;
     justify-content:space-between;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .kpirow {
     display: flex;
     flex-direction: row;
-    width: 98%;
+    width: 99%;
     align-content:center;
     align-items: center;
     justify-content:center;
-    justify-items: center;
-    flex-wrap: wrap;
+    justify-items:center;
 }
-
 
 .kpi {
     width:250px;
-    height: 65px;
+    height: 50px;
     border-radius: 10px;
     margin: 10px;
     padding: 5px;
@@ -80,24 +80,24 @@ body {
 }
 
 .cell {
-    width: 49%;
+    width: 47%;
     margin: 10px;
     padding: 10px;
     height: 300px;
     align-content: center;
     justify-items: center;
     border-radius: 10px;
-    background-color: ghostwhite; 
-    ;
+    background-color: ghostwhite;  
 }
-header {
+
+.header {
     font-family:'Host Grotesk';
     color: black;
     padding-top: 5px;
-    margin-top: 5px;
+    margin-top: 0px;
 }
 
-footer {
+.footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
