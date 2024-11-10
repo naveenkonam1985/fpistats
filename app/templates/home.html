@@ -1,0 +1,217 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>FPI Stats</title>
+</head>
+<body class="">
+    
+    <div class="container">
+        <header>
+            <div><h3>FPI Investment Dashboard for the Indian Market</h3></div>
+        </header>
+        <div class="charts">
+            <div class="kpirow">
+                <div class="kpi">
+                    Total Investment<br>
+                    <strong>{{y_cum[-1]}}</strong>
+                </div>
+                <div class="kpi">
+                    FY 2024-25 Investment<br>
+                    <strong>{{y_yearly[-1]}}</strong>
+                </div>
+                <div class="kpi">
+                    CY 2024 Investment<br>
+                    <strong>{{cy_total[-1]}}</strong>
+                </div>
+                <div class="kpi">
+                    CY 2024 Debt Investment<br>
+                    <strong>{{cy_debt[-1]}}</strong>
+                </div>
+                <div class="kpi">
+                    CY 2024 Hybrid Investment<br>
+                    <strong>{{cy_hybrid[-1]}}</strong>
+                </div>
+                <!-- This is for checkbox toggle for background change
+                <div>
+                    <label for="darkToggle">Theme</label>
+                    <input type="checkbox" id="darkToggle" onchange="colorchange(this)">
+                </div>-->
+                
+            </div>
+
+            <div class="row">
+                <div class="cell" id="yearlytotalchart">
+                    <script>
+                        var yearlyoptions = {
+                        chart: {
+                            type: 'line',
+                            height : '295px'  
+                        },
+                        series: [{
+                            name: 'Amount',
+                            data: {{y_cum | tojson}}
+                        }],    
+                        title: {text:'Financial Yearwise Cumulative Data'},
+                        xaxis: {
+                            categories: {{x_cum | tojson}},
+                            labels: {style: {
+                                    fontSize: '10px',
+                                }}
+                        }
+                        }
+
+                        var yearlychart = new ApexCharts(document.querySelector("#yearlytotalchart"), yearlyoptions);
+                        yearlychart.render();
+                    </script>
+                </div>
+                
+                <div class="cell" id="monthlychart">
+                    <script>
+                        var monthoptions = {
+                        chart: {
+                            type: 'bar',
+                            height : '295px'
+                        },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: 3,
+                                dataLabels: {
+                                position: 'top', // top, center, bottom
+                                },
+                            }
+                            },
+                            dataLabels: {
+                            enabled: true,
+                            offsetY: -20,
+                            style: {
+                                fontSize: '10px',
+                                colors: ["#304758"]
+                            }
+                            },
+                        series: [{
+                            name: 'Amount',
+                            data: {{y_total | tojson}}
+                        }],
+                        title : {text: 'Month Wise Total Investment data for Year 2024'},
+                        xaxis: {
+                            categories: {{x_total | tojson}},
+                            labels: {style: {
+                                    fontSize: '10px',
+                                }}
+                        },
+                        }
+                    
+                        var monthchart = new ApexCharts(document.querySelector("#monthlychart"), monthoptions);
+                        monthchart.render();
+                    </script>
+                </div>
+                
+                
+            </div>
+
+            <div class="row">
+                <div class="cell" id="monthlyequitychart">
+                    <script>
+                        var equityoptions = {
+                        chart: {
+                            type: 'bar',
+                            height : '295px'  
+                        },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: 3,
+                                dataLabels: {
+                                position: 'top', // top, center, bottom
+                                },
+                            }
+                            },
+                            dataLabels: {
+                            enabled: true,
+                            offsetY: -20,
+                            style: {
+                                fontSize: '10px',
+                                colors: ["#304758"]
+                            }
+                            },
+                        series: [{
+                            name: 'Amount',
+                            data: {{y_equity | tojson}}
+                        }],
+                        xaxis: {
+                            categories: {{x_equity | tojson}},
+                            labels: {style: {
+                                    fontSize: '10px',
+                                }}
+                        },
+                        title : {text: 'Month Wise Equity Investment data for Year 2024'}
+                        };
+    
+                        var equitychart = new ApexCharts(document.querySelector("#monthlyequitychart"), equityoptions);
+                        equitychart.render();
+            
+                    </script>
+    
+                    </div>
+                
+                <div class="cell" id="monthlyfundschart">
+                    <script>
+                        var fundoptions = {
+                        chart: {
+                            type: 'bar',
+                            height : '295px'
+                        },
+                        plotOptions: {
+                            bar: {
+                                borderRadius: 3,
+                                dataLabels: {
+                                position: 'top', // top, center, bottom
+                                },
+                            }
+                            },
+                            dataLabels: {
+                            enabled: true,
+                            offsetY: -20,
+                            style: {
+                                fontSize: '10px',
+                                colors: ["#304758"]
+                            }
+                            },
+                        series: [{
+                            name: 'Amount',
+                            data: {{y_funds | tojson}}
+                        }],
+                        xaxis: {
+                            categories: {{x_funds| tojson}},
+                            labels: {style: {
+                                    fontSize: '10px',
+                                }}},
+                        title : {text: 'Month Wise Mutual Funds Investment data for Year 2024'}
+                        }
+            
+                        var monthfundchart = new ApexCharts(document.querySelector("#monthlyfundschart"), fundoptions);
+                        monthfundchart.render();
+                    </script>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <footer>
+            <div>Data taken from NSDL website and link for reports 
+                <a href="https://www.fpi.nsdl.co.in/web/Reports/ReportsListing.aspx" target="_blank">
+                FPI link</a>. Data may have slight mismatch as data is rounded off, 
+                total amounts are calculated and not taken from website.
+                Values are in INR Crores. Data updated upto <strong>8th Nov'24.</strong>
+            </div>
+            <div>Developed by Konam</div>
+        </footer>
+        
+    </div>
+   
+
+</body>
+</html>
